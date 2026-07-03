@@ -1,1 +1,3 @@
-DEFAULT_API_KEY = "AQ.Ab8RN6JAS_2PHcHYaydBGLm2ozXXfoH8njFKDW0egOtIMRM7qw"
+import os
+
+DEFAULT_API_KEY = os.getenv("GEMINI_API_KEY", "").strip()
