@@ -6,8 +6,15 @@ import time
 import ctypes
 import io
 import struct
+import sys
+from pathlib import Path
 from tkinter import filedialog, messagebox
 import customtkinter as ctk
+
+SCRIPT_DIR = Path(__file__).resolve().parent
+if str(SCRIPT_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPT_DIR))
+
 try:
     from google import genai
     from google.genai import types
@@ -25,11 +32,10 @@ except ImportError:
     messagebox.showwarning("Бібліотека Pillow не знайдена", "Встановіть Pillow (pip install Pillow)!")
     HAS_PIL = False
 
+from config import DEFAULT_API_KEY
 from paint_window import MiniPaintWindow
 
-from config import DEFAULT_API_KEY
-
-CONFIG_FILE = "gemini_config.json"
+CONFIG_FILE = str(SCRIPT_DIR / "gemini_config.json")
 
 # Розширені теми
 THEMES = {
@@ -281,7 +287,7 @@ class AdvancedChatApp(ctk.CTk):
     def __init__(self):
         super().__init__()
         self.geometry("900x750")
-        self.title("AI Client")
+        self.title("Urumini")
         self.minsize(600, 500)
         
         self.current_theme_name = "Dracula" 
