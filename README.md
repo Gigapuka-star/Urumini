@@ -1,52 +1,32 @@
-Urumini
-Urumini is a lightweight desktop client designed to interface with the Gemini AI model, specifically optimized for older personal computers.
+# Urumini
 
-Features
-Optimized Performance: Built to run smoothly on older hardware configurations.
+Urumini is a lightweight desktop client for Gemini, designed specifically for older PCs.
 
-Customizable Interface:
+## Features
 
-Change visual themes (e.g., Dracula).
+- Lightweight and fast performance.
+- Built-in drawing tool for sketches.
+- Customizable interface (Dracula theme, font settings).
+- Advanced settings: typewriter effect, typing speed control, and delay adjustments.
+- Privacy features: Guest mode and Incognito mode.
 
-Adjust font styles and sizes for better readability.
+## Installation
 
-Drawing Tool: Includes an integrated "Quick Draw" feature for sending sketches directly to the AI.
+1. Clone this repository:
+   git clone https://github.com/Gigapuka-star/Urumini
 
-Advanced Control Panel:
+2. Install the required dependencies:
+   pip install -r requirements.txt
 
-Experiments: Toggle typewriter effects, adjust typing speed, and manage message delays.
+3. Run the main application file.
 
-Privacy Options: Features include Guest mode and an Incognito mode that erases old messages.
+## Project Structure
 
-Model Selection: Easily switch between supported AI models like gemini-3.1-flash-lite.
+- gemini.py: AI model interaction logic.
+- paint_window.py: Drawing interface.
+- config.py: User configuration settings.
+- requirements.txt: Dependencies list.
 
-Multilingual Support: Interface supports English language settings.
+## License
 
-Getting Started
-Clone the repository:
-
-Bash
-
-
-git clone https://github.com/Gigapuka-star/Urumini
-Install dependencies:
-Ensure you have Python installed, then run the requirements file:
-
-Bash
-
-
-pip install -r requirements.txt
-Run the application:
-Execute the main script to launch the interface.
-
-Project Structure
-gemini.py: Core logic for AI model interaction.
-
-paint_window.py: Handles the drawing interface functionality.
-
-config.py: Manages user settings and application configuration.
-
-requirements.txt: List of necessary Python packages.
-
-License
 This project is licensed under the MIT License.
