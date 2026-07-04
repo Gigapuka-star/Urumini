@@ -3,10 +3,10 @@
 Urumini is a lightweight desktop client for Gemini, designed specifically for older PCs.
 ### Preview
 
-![Main Interface](photo_2026-07-04_12-31-36.jpg)
+![Main Interface](photo_2026-07-04_12-31-35.jpg)
 
 ### Settings Panel
-![Settings](photo_2026-07-04_12-31-35.jpg)
+![Settings](photo_2026-07-04_12-31-36.jpg)
 
 ### Drawing Tool
 ![Paint Window](photo_2026-07-04_12-31-36%20(2).jpg)
