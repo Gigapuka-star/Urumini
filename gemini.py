@@ -27,22 +27,145 @@ except ImportError:
 
 from paint_window import MiniPaintWindow
 
-from config import DEFAULT_API_KEY
-
 CONFIG_FILE = "gemini_config.json"
 
-# Розширені теми
 THEMES = {
-    "Рожеве Золото": {"bg": "#1A1214", "chat_bg": "#2C1A1D", "user_bubble": "#B76E79", "bot_bubble": "#44282C", "error_bubble": "#8C2A3A", "text": "#FFF0F2", "accent": "#E0A1A9", "top_bar": "#150E10", "border": "#5E3A40"},
-    "Космічний Неон": {"bg": "#0B0C10", "chat_bg": "#13111C", "user_bubble": "#4A00E0", "bot_bubble": "#2A2540", "error_bubble": "#800020", "text": "#FFFFFF", "accent": "#6B21FF", "top_bar": "#0F0E17", "border": "#3B3561"},
-    "Кіберпанк 2077": {"bg": "#03001e", "chat_bg": "#120024", "user_bubble": "#ff007f", "bot_bubble": "#240046", "error_bubble": "#ff0000", "text": "#00f0ff", "accent": "#ff007f", "top_bar": "#0a0018", "border": "#730099"},
-    "Матриця (Hacker)": {"bg": "#000000", "chat_bg": "#050B05", "user_bubble": "#00FF33", "bot_bubble": "#102410", "error_bubble": "#8B0000", "text": "#00FF33", "accent": "#00FF33", "top_bar": "#020502", "border": "#00FF33"},
-    "Океанський Бриз": {"bg": "#0F2027", "chat_bg": "#203A43", "user_bubble": "#2C5364", "bot_bubble": "#243B55", "error_bubble": "#9E3C3C", "text": "#ECEFF1", "accent": "#00E5FF", "top_bar": "#0B161A", "border": "#37474F"},
-    "Класичний Темний": {"bg": "#18191A", "chat_bg": "#242526", "user_bubble": "#007AFF", "bot_bubble": "#3A3B3C", "error_bubble": "#A42828", "text": "#E4E6EB", "accent": "#2D88FF", "top_bar": "#18191A", "border": "#3E4042"},
+    "Rose Gold": {"bg": "#1A1214", "chat_bg": "#2C1A1D", "user_bubble": "#B76E79", "bot_bubble": "#44282C", "error_bubble": "#8C2A3A", "text": "#FFF0F2", "accent": "#E0A1A9", "top_bar": "#150E10", "border": "#5E3A40"},
+    "Neon Space": {"bg": "#0B0C10", "chat_bg": "#13111C", "user_bubble": "#4A00E0", "bot_bubble": "#2A2540", "error_bubble": "#800020", "text": "#FFFFFF", "accent": "#6B21FF", "top_bar": "#0F0E17", "border": "#3B3561"},
+    "Cyberpunk 2077": {"bg": "#03001e", "chat_bg": "#120024", "user_bubble": "#ff007f", "bot_bubble": "#240046", "error_bubble": "#ff0000", "text": "#00f0ff", "accent": "#ff007f", "top_bar": "#0a0018", "border": "#730099"},
+    "Matrix (Hacker)": {"bg": "#000000", "chat_bg": "#050B05", "user_bubble": "#00FF33", "bot_bubble": "#102410", "error_bubble": "#8B0000", "text": "#00FF33", "accent": "#00FF33", "top_bar": "#020502", "border": "#00FF33"},
+    "Ocean Breeze": {"bg": "#0F2027", "chat_bg": "#203A43", "user_bubble": "#2C5364", "bot_bubble": "#243B55", "error_bubble": "#9E3C3C", "text": "#ECEFF1", "accent": "#00E5FF", "top_bar": "#0B161A", "border": "#37474F"},
+    "Classic Dark": {"bg": "#18191A", "chat_bg": "#242526", "user_bubble": "#007AFF", "bot_bubble": "#3A3B3C", "error_bubble": "#A42828", "text": "#E4E6EB", "accent": "#2D88FF", "top_bar": "#18191A", "border": "#3E4042"},
     "Dracula": {"bg": "#282a36", "chat_bg": "#1E1F29", "user_bubble": "#bd93f9", "bot_bubble": "#44475a", "error_bubble": "#ff5555", "text": "#f8f8f2", "accent": "#ff79c6", "top_bar": "#21222C", "border": "#6272a4"},
     "Gruvbox": {"bg": "#282828", "chat_bg": "#1d2021", "user_bubble": "#d3869b", "bot_bubble": "#3c3836", "error_bubble": "#cc241d", "text": "#ebdbb2", "accent": "#fabd2f", "top_bar": "#282828", "border": "#504945"},
     "Monokai": {"bg": "#272822", "chat_bg": "#1e1f1c", "user_bubble": "#fd971f", "bot_bubble": "#3e3d32", "error_bubble": "#f92672", "text": "#f8f8f2", "accent": "#a6e22e", "top_bar": "#272822", "border": "#75715e"},
     "Solarized Dark": {"bg": "#002b36", "chat_bg": "#001e26", "user_bubble": "#268bd2", "bot_bubble": "#073642", "error_bubble": "#dc322f", "text": "#839496", "accent": "#2aa198", "top_bar": "#002b36", "border": "#586e75"}
+}
+
+THEME_ALIASES = {
+    "Рожеве Золото": "Rose Gold",
+    "Космічний Неон": "Neon Space",
+    "Кіберпанк 2077": "Cyberpunk 2077",
+    "Матриця (Hacker)": "Matrix (Hacker)",
+    "Океанський Бриз": "Ocean Breeze",
+    "Класичний Темний": "Classic Dark",
+}
+
+LOCALES = {
+    "en": {
+        "settings_title": "⚙️ Settings",
+        "settings_header": "CONTROL PANEL",
+        "free_mode_label": "🌐 Guest mode (no key)",
+        "experiments": "🧪 EXPERIMENTS:",
+        "typewriter_label": "⌨️ Typewriter effect",
+        "typewriter_speed": "⌨️ Typing speed: {}",
+        "typewriter_delay": "⏱ Delay (ms): {}",
+        "sound_label": "🔔 Sound notification",
+        "jedi_label": "🕵️ Incognito (erase old messages)",
+        "model_label": "🧠 AI Model:",
+        "theme_label": "🎨 Visual Theme:",
+        "font_label": "🔤 Fonts:",
+        "font_size": "📏 Font size: {}px",
+        "clear_dialog": "🗑️ Clear dialog",
+        "language_label": "🌍 Language:",
+        "language": "Language",
+        "english": "English",
+        "ukrainian": "Ukrainian",
+        "russian": "Russian",
+        "placeholder_message": "Message...",
+        "attachment_file": "📎 File: {}",
+        "attachment_screenshot": "📎 Screenshot from clipboard",
+        "guest_mode_on": "🌐 GUEST MODE ENABLED (API simulation).",
+        "guest_mode_missing_module": "🔌 google-genai module not found — guest mode enabled.",
+        "connection_error": "🚨 CONNECTION ERROR: {}",
+        "no_connection": "🚨 CONNECTION FAILED: No connection. Check your setup.",
+        "mock_response": "🤖 GUEST MODE: This is a mock response. To generate a real answer, switch off guest mode.",
+        "copy_ok": "✅ Last text/code copied to clipboard.",
+        "copy_error": "⚠️ Copy error: {}",
+        "copy_empty": "⚠️ There is nothing to copy.",
+        "attach_title": "Choose a file",
+        "attach_all_files": "All files",
+        "window_title": "AI Client",
+        "error_api_key": "🚨 CRITICAL ERROR: No connection is available. Guest mode is active.",
+        "clear_chat": "Clear dialog",
+        "theme": "Theme"
+    },
+    "uk": {
+        "settings_title": "⚙️ Налаштування",
+        "settings_header": "ПАНЕЛЬ КЕРУВАННЯ",
+        "free_mode_label": "🌐 Гостьовий режим (без ключа)",
+        "experiments": "🧪 ЕКСПЕРИМЕНТИ:",
+        "typewriter_label": "⌨️ Ефект друку",
+        "typewriter_speed": "⌨️ Швидкість набору: {}",
+        "typewriter_delay": "⏱ Затримка (ms): {}",
+        "sound_label": "🔔 Звукове сповіщення",
+        "jedi_label": "🕵️ Інкогніто (стирати старі)",
+        "model_label": "🧠 Модель ШІ:",
+        "theme_label": "🎨 Візуальна тема:",
+        "font_label": "🔤 Шрифти:",
+        "font_size": "📏 Розмір шрифту: {}px",
+        "clear_dialog": "🗑️ Очистити діалог",
+        "language_label": "🌍 Мова:",
+        "language": "Мова",
+        "english": "Англійська",
+        "ukrainian": "Українська",
+        "russian": "Російська",
+        "placeholder_message": "Повідомлення...",
+        "attachment_file": "📎 Файл: {}",
+        "attachment_screenshot": "📎 Скріншот із буфера",
+        "guest_mode_on": "🌐 ГОСТЬОВИЙ РЕЖИМ УВІМКНЕНО (імітація API).",
+        "guest_mode_missing_module": "🔌 Модуль google-genai не знайдено — увімкнено гостьовий режим.",
+        "connection_error": "🚨 ПОМИЛКА ПІДКЛЮЧЕННЯ: {}",
+        "no_connection": "🚨 ВІДМОВА: Немає підключення. Перевірте налаштування.",
+        "mock_response": "🤖 ГОСТЬОВИЙ РЕЖИМ: Це імітація відповіді. Щоб отримати справжню відповідь, вимкніть гостьовий режим.",
+        "copy_ok": "✅ Останній текст/код скопійовано у буфер обміну.",
+        "copy_error": "⚠️ Помилка копіювання: {}",
+        "copy_empty": "⚠️ Немає чого копіювати.",
+        "attach_title": "Оберіть файл",
+        "attach_all_files": "Усі файли",
+        "window_title": "AI Client",
+        "error_api_key": "🚨 КРИТИЧНА ПОМИЛКА: Немає підключення. Гостьовий режим активний.",
+        "clear_chat": "Очистити діалог",
+        "theme": "Тема"
+    },
+    "ru": {
+        "settings_title": "⚙️ Настройки",
+        "settings_header": "ПАНЕЛЬ УПРАВЛЕНИЯ",
+        "free_mode_label": "🌐 Гостевой режим (без ключа)",
+        "experiments": "🧪 ЭКСПЕРИМЕНТЫ:",
+        "typewriter_label": "⌨️ Эффект печати",
+        "typewriter_speed": "⌨️ Скорость набора: {}",
+        "typewriter_delay": "⏱ Задержка (ms): {}",
+        "sound_label": "🔔 Звуковое уведомление",
+        "jedi_label": "🕵️ Инкогнито (стирание старых)",
+        "model_label": "🧠 Модель ИИ:",
+        "theme_label": "🎨 Визуальная тема:",
+        "font_label": "🔤 Шрифты:",
+        "font_size": "📏 Размер шрифта: {}px",
+        "clear_dialog": "🗑️ Очистить диалог",
+        "language_label": "🌍 Язык:",
+        "language": "Язык",
+        "english": "Английский",
+        "ukrainian": "Украинский",
+        "russian": "Русский",
+        "placeholder_message": "Сообщение...",
+        "attachment_file": "📎 Файл: {}",
+        "attachment_screenshot": "📎 Скриншот из буфера",
+        "guest_mode_on": "🌐 ГОСТЕВОЙ РЕЖИМ ВКЛЮЧЕН (имитация API).",
+        "guest_mode_missing_module": "🔌 Модуль google-genai не найден — включён гостевой режим.",
+        "connection_error": "🚨 ОШИБКА ПОДКЛЮЧЕНИЯ: {}",
+        "no_connection": "🚨 ОТКАЗ: Нет подключения. Проверьте настройки.",
+        "mock_response": "🤖 ГОСТЕВОЙ РЕЖИМ: Это имитация ответа. Чтобы получить настоящий ответ, выключите гостевой режим.",
+        "copy_ok": "✅ Последний текст/код скопирован в буфер обмена.",
+        "copy_error": "⚠️ Ошибка копирования: {}",
+        "copy_empty": "⚠️ Нечего копировать.",
+        "attach_title": "Выберите файл",
+        "attach_all_files": "Все файлы",
+        "window_title": "AI Client",
+        "error_api_key": "🚨 КРИТИЧНАЯ ОШИБКА: Нет подключения. Гостевой режим активен.",
+        "clear_chat": "Очистить диалог",
+        "theme": "Тема"
+    }
 }
 
 # =====================================================================
@@ -52,93 +175,92 @@ class SettingsWindow(ctk.CTkToplevel):
     def __init__(self, master_app, current_theme_config):
         super().__init__(master_app)
         self.master_app = master_app
+        self.locale = self.master_app.current_locale
+        self.t = LOCALES[self.locale]
         
-        self.title("⚙️ Налаштування")
-        self.geometry("420x800")
-        self.resizable(False, False)
+        self.title(self.t["settings_title"])
+        self.geometry("420x680")
+        self.minsize(380, 560)
+        self.resizable(True, True)
         self.attributes('-topmost', True)
         
         self.container = ctk.CTkScrollableFrame(self, corner_radius=0)
         self.container.pack(fill="both", expand=True)
         
-        self.header_lbl = ctk.CTkLabel(self.container, text="ПАНЕЛЬ КЕРУВАННЯ", font=("Segoe UI", 16, "bold"))
+        self.header_lbl = ctk.CTkLabel(self.container, text=self.t["settings_header"], font=("Segoe UI", 16, "bold"))
         self.header_lbl.pack(pady=(20, 10))
 
         self.free_mode_switch = ctk.CTkSwitch(
-            self.container, text="🌐 Гостьовий режим (без ключа)", font=("Segoe UI", 13, "bold"), command=self.toggle_free_mode
+            self.container, text=self.t["free_mode_label"], font=("Segoe UI", 13, "bold"), command=self.toggle_free_mode
         )
         self.free_mode_switch.pack(padx=20, pady=(5, 10), anchor="w")
         if self.master_app.free_mode: self.free_mode_switch.select()
 
-        self.key_lbl = ctk.CTkLabel(self.container, text="🔑 Ваш API Ключ (Сховище):", font=("Segoe UI", 13, "bold"))
-        self.key_lbl.pack(padx=20, pady=(0, 0), anchor="w")
-        
-        self.key_entry = ctk.CTkComboBox(self.container, values=self.master_app.key_history)
-        self.key_entry.pack(fill="x", padx=20, pady=(5, 5))
-        self.key_entry.set(self.master_app.API_KEY)
-        
-        self.btn_save_key = ctk.CTkButton(self.container, text="💾 Зберегти ключ", fg_color="#005A9E", hover_color="#004578", command=self.save_api_key)
-        self.btn_save_key.pack(fill="x", padx=20, pady=(0, 10))
-
         self.divider_exp = ctk.CTkFrame(self.container, height=2, fg_color="#444444")
         self.divider_exp.pack(fill="x", padx=20, pady=5)
         
-        self.exp_lbl = ctk.CTkLabel(self.container, text="🧪 ЕКСПЕРИМЕНТИ:", font=("Segoe UI", 13, "bold"), text_color="#FFD700")
+        self.exp_lbl = ctk.CTkLabel(self.container, text=self.t["experiments"], font=("Segoe UI", 13, "bold"), text_color="#FFD700")
         self.exp_lbl.pack(padx=20, pady=(5, 5), anchor="w")
 
-        self.typewriter_switch = ctk.CTkSwitch(self.container, text="⌨️ Ефект друку", command=self.toggle_typewriter)
+        self.typewriter_switch = ctk.CTkSwitch(self.container, text=self.t["typewriter_label"], command=self.toggle_typewriter)
         self.typewriter_switch.pack(padx=20, pady=(5, 5), anchor="w")
         if self.master_app.typewriter_mode: self.typewriter_switch.select()
 
         # Typewriter tuning controls
-        self.chunk_lbl = ctk.CTkLabel(self.container, text=f"⌨️ Швидкість набору: {self.master_app.typewriter_chunk_size}", font=("Segoe UI", 12))
+        self.chunk_lbl = ctk.CTkLabel(self.container, text=self.t["typewriter_speed"].format(self.master_app.typewriter_chunk_size), font=("Segoe UI", 12))
         self.chunk_lbl.pack(padx=20, pady=(6, 0), anchor="w")
         self.chunk_slider = ctk.CTkSlider(self.container, from_=1, to=32, number_of_steps=31, command=self._on_chunk_slider)
         self.chunk_slider.set(self.master_app.typewriter_chunk_size)
         self.chunk_slider.pack(fill="x", padx=20, pady=(3, 8))
 
-        self.delay_lbl = ctk.CTkLabel(self.container, text=f"⏱ Затримка (ms): {self.master_app.typewriter_delay_ms}", font=("Segoe UI", 12))
+        self.delay_lbl = ctk.CTkLabel(self.container, text=self.t["typewriter_delay"].format(self.master_app.typewriter_delay_ms), font=("Segoe UI", 12))
         self.delay_lbl.pack(padx=20, pady=(6, 0), anchor="w")
         self.delay_slider = ctk.CTkSlider(self.container, from_=0, to=50, number_of_steps=50, command=self._on_delay_slider)
         self.delay_slider.set(self.master_app.typewriter_delay_ms)
         self.delay_slider.pack(fill="x", padx=20, pady=(3, 8))
 
-        self.sound_switch = ctk.CTkSwitch(self.container, text="🔔 Звукове сповіщення", command=self.toggle_sound)
+        self.sound_switch = ctk.CTkSwitch(self.container, text=self.t["sound_label"], command=self.toggle_sound)
         self.sound_switch.pack(padx=20, pady=(5, 5), anchor="w")
         if self.master_app.sound_mode: self.sound_switch.select()
 
-        self.jedi_switch = ctk.CTkSwitch(self.container, text="🕵️ Інкогніто (Стирати старі)", command=self.toggle_jedi)
+        self.jedi_switch = ctk.CTkSwitch(self.container, text=self.t["jedi_label"], command=self.toggle_jedi)
         self.jedi_switch.pack(padx=20, pady=(5, 10), anchor="w")
         if self.master_app.jedi_mode: self.jedi_switch.select()
 
         self.divider1 = ctk.CTkFrame(self.container, height=2, fg_color="#444444")
         self.divider1.pack(fill="x", padx=20, pady=5)
         
-        self.model_lbl = ctk.CTkLabel(self.container, text="🧠 Модель ШІ:", font=("Segoe UI", 13, "bold"))
+        self.model_lbl = ctk.CTkLabel(self.container, text=self.t["model_label"], font=("Segoe UI", 13, "bold"))
         self.model_lbl.pack(padx=20, pady=(5, 0), anchor="w")
         self.model_dropdown = ctk.CTkOptionMenu(self.container, values=["gemini-3.1-flash-lite", "gemini-3.5-flash", "gemini-2.5-pro"], command=self.master_app.change_ai_model)
         self.model_dropdown.pack(fill="x", padx=20, pady=(5, 10))
         self.model_dropdown.set(self.master_app.selected_model_name)
         
-        self.theme_lbl = ctk.CTkLabel(self.container, text="🎨 Візуальна Тема:", font=("Segoe UI", 13, "bold"))
+        self.theme_lbl = ctk.CTkLabel(self.container, text=self.t["theme_label"], font=("Segoe UI", 13, "bold"))
         self.theme_lbl.pack(padx=20, pady=(5, 0), anchor="w")
         self.theme_dropdown = ctk.CTkOptionMenu(self.container, values=list(THEMES.keys()), command=self.master_app.change_theme_event)
         self.theme_dropdown.pack(fill="x", padx=20, pady=(5, 10))
         self.theme_dropdown.set(self.master_app.current_theme_name)
         
-        self.font_lbl = ctk.CTkLabel(self.container, text="🔤 Шрифти:", font=("Segoe UI", 13, "bold"))
+        self.font_lbl = ctk.CTkLabel(self.container, text=self.t["font_label"], font=("Segoe UI", 13, "bold"))
         self.font_lbl.pack(padx=20, pady=(5, 0), anchor="w")
         self.font_dropdown = ctk.CTkOptionMenu(self.container, values=["Comic Sans MS", "Segoe UI", "Roboto", "Consolas"], command=self.master_app.change_font_family_event)
         self.font_dropdown.pack(fill="x", padx=20, pady=(5, 10))
         self.font_dropdown.set(self.master_app.current_font_family)
         
-        self.size_lbl = ctk.CTkLabel(self.container, text=f"📏 Розмір шрифту: {self.master_app.current_font_size}px", font=("Segoe UI", 13, "bold"))
+        self.size_lbl = ctk.CTkLabel(self.container, text=self.t["font_size"].format(self.master_app.current_font_size), font=("Segoe UI", 13, "bold"))
         self.size_lbl.pack(padx=20, pady=(5, 0), anchor="w")
         self.size_slider = ctk.CTkSlider(self.container, from_=11, to=24, number_of_steps=13, command=self._on_slider_change)
         self.size_slider.pack(fill="x", padx=20, pady=(5, 15))
         self.size_slider.set(self.master_app.current_font_size)
         
-        self.btn_clear = ctk.CTkButton(self.container, text="🗑️ Очистити діалог", fg_color="#A30000", hover_color="#D30000", command=self.master_app.clear_chat_history)
+        self.language_lbl = ctk.CTkLabel(self.container, text=self.t["language_label"], font=("Segoe UI", 13, "bold"))
+        self.language_lbl.pack(padx=20, pady=(5, 0), anchor="w")
+        self.language_dropdown = ctk.CTkOptionMenu(self.container, values=[self.t["english"], self.t["ukrainian"], self.t["russian"]], command=self.change_language)
+        self.language_dropdown.pack(fill="x", padx=20, pady=(5, 10))
+        self.language_dropdown.set(self.t["english"] if self.locale == "en" else (self.t["ukrainian"] if self.locale == "uk" else self.t["russian"]))
+
+        self.btn_clear = ctk.CTkButton(self.container, text=self.t["clear_dialog"], fg_color="#A30000", hover_color="#D30000", command=self.master_app.clear_chat_history)
         self.btn_clear.pack(fill="x", padx=20, pady=5)
 
         self.apply_colors(current_theme_config)
@@ -173,13 +295,16 @@ class SettingsWindow(ctk.CTkToplevel):
         self.master_app.jedi_mode = self.jedi_switch.get() == 1
         self.master_app.save_config_state()
 
-    def save_api_key(self):
-        new_key = self.key_entry.get().strip()
-        if new_key:
-            self.master_app.save_api_key_to_config(new_key)
-            self.key_entry.configure(values=self.master_app.key_history)
-            self.master_app.init_gemini_client()
-            messagebox.showinfo("Збережено", "Ключ успішно додано!", parent=self)
+    def change_language(self, selected_value):
+        if selected_value == self.t["english"]:
+            self.master_app.current_locale = "en"
+        elif selected_value == self.t["ukrainian"]:
+            self.master_app.current_locale = "uk"
+        else:
+            self.master_app.current_locale = "ru"
+        self.master_app.save_config_state()
+        self.master_app.apply_locale()
+        self.master_app.open_settings_window()
 
     def _on_chunk_slider(self, value):
         try:
@@ -204,11 +329,10 @@ class SettingsWindow(ctk.CTkToplevel):
     def apply_colors(self, cfg):
         self.container.configure(fg_color=cfg["top_bar"])
         self.header_lbl.configure(text_color=cfg["accent"])
-        for lbl in [self.key_lbl, self.model_lbl, self.theme_lbl, self.font_lbl, self.size_lbl]: lbl.configure(text_color=cfg["text"])
-        self.key_entry.configure(fg_color=cfg["bg"], text_color=cfg["text"], border_color=cfg["border"])
+        for lbl in [self.model_lbl, self.theme_lbl, self.font_lbl, self.size_lbl, self.language_lbl]: lbl.configure(text_color=cfg["text"])
         for switch in [self.free_mode_switch, self.typewriter_switch, self.sound_switch, self.jedi_switch]:
             switch.configure(progress_color=cfg["user_bubble"], button_color=cfg["accent"])
-        for ctrl in [self.model_dropdown, self.theme_dropdown, self.font_dropdown]:
+        for ctrl in [self.model_dropdown, self.theme_dropdown, self.font_dropdown, self.language_dropdown]:
             ctrl.configure(button_color=cfg["user_bubble"], button_hover_color=cfg["accent"], fg_color=cfg["bg"], text_color=cfg["text"])
         self.size_slider.configure(progress_color=cfg["user_bubble"], button_color=cfg["accent"])
 
@@ -288,6 +412,8 @@ class AdvancedChatApp(ctk.CTk):
         self.current_font_family = "Comic Sans MS"
         self.current_font_size = 14
         self.selected_model_name = "gemini-3.1-flash-lite"
+        self.current_locale = "en"
+        self.t = LOCALES[self.current_locale]
         
         self.chat_history = []
         self.messages_widgets_list = []
@@ -296,8 +422,8 @@ class AdvancedChatApp(ctk.CTk):
         self.chat_session = None
         self.attached_file_path = None
 
-        self.API_KEY = DEFAULT_API_KEY
-        self.key_history = [DEFAULT_API_KEY]
+        self.API_KEY = ""
+        self.key_history = []
         self.free_mode = False
         self.typewriter_mode = False
         self.sound_mode = False
@@ -310,6 +436,7 @@ class AdvancedChatApp(ctk.CTk):
         self._typewriter_state = None
 
         self.load_config_state()
+        self.t = LOCALES[self.current_locale]
         self.setup_ui_layout()
         self.apply_theme_colors()
         self.init_gemini_client()
@@ -344,6 +471,7 @@ class AdvancedChatApp(ctk.CTk):
                     data = json.load(f)
                     self.API_KEY = data.get("api_key", self.API_KEY)
                     self.key_history = data.get("key_history", self.key_history)
+                    self.current_locale = data.get("language", self.current_locale)
                     self.free_mode = data.get("free_mode", False)
                     self.typewriter_mode = data.get("typewriter", False)
                     self.sound_mode = data.get("sound", False)
@@ -356,7 +484,7 @@ class AdvancedChatApp(ctk.CTk):
     def save_config_state(self):
         data = {
             "api_key": self.API_KEY, "key_history": self.key_history, "free_mode": self.free_mode,
-            "last_theme": self.current_theme_name, "typewriter": self.typewriter_mode,
+            "last_theme": self.current_theme_name, "language": self.current_locale, "typewriter": self.typewriter_mode,
             "sound": self.sound_mode, "jedi": self.jedi_mode,
             "typewriter_chunk": self.typewriter_chunk_size, "typewriter_delay": self.typewriter_delay_ms
         }
@@ -368,6 +496,16 @@ class AdvancedChatApp(ctk.CTk):
         self.API_KEY = new_key
         if new_key not in self.key_history: self.key_history.append(new_key)
         self.save_config_state()
+
+    def apply_locale(self):
+        self.t = LOCALES[self.current_locale]
+        self.title(self.t["window_title"])
+        if hasattr(self, "entry_field") and self.entry_field.winfo_exists():
+            self.entry_field.configure(placeholder_text=self.t["placeholder_message"])
+        if self.settings_window_instance and self.settings_window_instance.winfo_exists():
+            self.settings_window_instance.destroy()
+            self.settings_window_instance = None
+        self.open_settings_window()
 
     def setup_ui_layout(self):
         # ВЕРХНЮ ПАНЕЛЬ ВИДАЛЕНО ПОВНІСТЮ
@@ -403,7 +541,7 @@ class AdvancedChatApp(ctk.CTk):
         # (pause button removed; send button handles stop/reveal)
 
         self.entry_field = ctk.CTkEntry(
-            self.controls_frame, placeholder_text="Повідомлення...", 
+            self.controls_frame, placeholder_text=self.t["placeholder_message"], 
             height=50, border_width=1, font=(self.current_font_family, 14), corner_radius=25
         )
         self.entry_field.pack(side="left", fill="x", expand=True, padx=(10, 10), pady=20)
@@ -523,7 +661,7 @@ class AdvancedChatApp(ctk.CTk):
         else: self.paint_window_instance.focus()
 
     def attach_file(self):
-        file_path = filedialog.askopenfilename(title="Оберіть файл", filetypes=[("Всі файли", "*.*")])
+        file_path = filedialog.askopenfilename(title=self.t["attach_title"], filetypes=[(self.t["attach_all_files"], "*.*")])
         if file_path:
             self.attached_file_path = file_path
             self.attachment_label.configure(text=f"📎 {os.path.basename(file_path)}")
@@ -537,15 +675,15 @@ class AdvancedChatApp(ctk.CTk):
         if not HAS_GEMINI:
             self.free_mode = True
             self.chat_session = None
-            self.insert_system_note("🔌 Модуль google-genai не знайдено — увімкнено гостьовий режим.")
+            self.insert_system_note(self.t["guest_mode_missing_module"])
             return
 
         if self.free_mode:
-            self.insert_system_note("🌐 УВІМКНЕНО ГОСТЬОВИЙ РЕЖИМ (Імітація API).")
+            self.insert_system_note(self.t["guest_mode_on"])
             return
 
         if not self.API_KEY or self.API_KEY.strip() == "":
-            self.display_message("🚨 КРИТИЧНА ПОМИЛКА: Введіть API-ключ у налаштуваннях.", is_user=False, is_error=True)
+            self.display_message(self.t["error_api_key"], is_user=False, is_error=True)
             self.chat_session = None
             return
 
@@ -637,12 +775,12 @@ class AdvancedChatApp(ctk.CTk):
             self.entry_field.configure(state="disabled")
             def mock_response():
                 time.sleep(1.2)
-                self.after(0, self._on_gemini_response, "🤖 ГОСТЬОВИЙ РЕЖИМ: Це імітація відповіді. Щоб згенерувати справжній текст, вимкніть гостьовий режим і додайте API-ключ.", False)
+                self.after(0, self._on_gemini_response, self.t["mock_response"], False)
             threading.Thread(target=mock_response, daemon=True).start()
             return
 
         if not self.chat_session:
-            self.display_message("🚨 ВІДМОВА: Немає підключення. Перевірте ключ.", is_user=False, is_error=True)
+            self.display_message(self.t["no_connection"], is_user=False, is_error=True)
             return
 
         self.entry_field.configure(state="disabled")
@@ -658,15 +796,15 @@ class AdvancedChatApp(ctk.CTk):
             text_to_copy = self.chat_history[-1]["text"].strip() if self.chat_history else ""
 
         if not text_to_copy:
-            self.insert_system_note("⚠️ Немає відповіді для копіювання.")
+            self.insert_system_note(self.t["copy_empty"])
             return
 
         try:
             self.clipboard_clear()
             self.clipboard_append(text_to_copy)
-            self.insert_system_note("✅ Останній код/текст скопійовано у буфер обміну.")
+            self.insert_system_note(self.t["copy_ok"])
         except Exception as e:
-            self.insert_system_note(f"⚠️ Помилка копіювання: {e}")
+            self.insert_system_note(self.t["copy_error"].format(e))
 
     def _request_gemini(self, query_text, file_path=None):
         try:
